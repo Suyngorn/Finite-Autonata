@@ -66,11 +66,13 @@ public class DesignFA {
                     print(Q[qq] + " by " + faModel.getX()[aa] + " : q");
                     getState = input.next();
 
+                    if (count>=2 && !faModel.isFa()){
+                        faModel.setFa(true);
+                    }
                     if (getState.equals("q")){
                         if (count ==0){
                             tx.setTx("None");
                             listTx.add(tx);
-
                         }
 
                     }else {
@@ -90,9 +92,24 @@ public class DesignFA {
         }
 
         long x = 99999999;
-        print(list.toString());
+        printFA(list);
     }
 
+
+    void printFA(List<FAModel> list){
+        String hr = "======================";
+        String pl = "+";
+        String ru = "|";
+        FAModel fa = list.get(0);
+        String testFA = "DFA";
+        if (fa.isFa()){
+            testFA = "NFA";
+        }
+        println(hr);
+        print("This Finite Automata is "+ testFA);
+        println(hr+"\n");
+
+    }
 
     void print(String a){
         System.out.print(a);

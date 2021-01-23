@@ -183,6 +183,11 @@ public class FAModel {
 //                ",\nS=" + x +
 //                ",\nstart_state='" + start_state + '\'' +
 //                ",\nfinal_state='" + final_state + '\'' +"\n";
-        return toTxToString();
+        String fa = "DFA";
+        if (isFa()){
+            fa = "NFA";
+        }
+        return toTxToString()+
+                "\n This FA is "+fa;
     }
 }
