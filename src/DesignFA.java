@@ -98,6 +98,36 @@ public class DesignFA {
         return list;
     }
 
+    /*
+    S = {
+        {
+            q0,
+            symbol{
+                a{q0}
+                b{q1}
+            }
+        }
+        {
+            q1,
+            symbol{
+                a{q0}
+                b{q1}
+            }
+        }
+
+    }
+
+    //We want.
+        +===============+
+        |   a   |   b   |
+        +===============+
+    ->q0|   q0  | q0,q1 |
+      q1|  none |   q2  |
+     *q2|   q2  |   q2  |
+      +===================
+
+     */
+
 
     void printFA(List<FAModel> list){
         String hr = "======================";

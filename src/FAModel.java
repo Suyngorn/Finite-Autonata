@@ -114,36 +114,6 @@ public class FAModel {
     }
 
 
-    /*
-    S = {
-        {
-            q0,
-            symbol{
-                a{q0}
-                b{q1}
-            }
-        }
-        {
-            q1,
-            symbol{
-                a{q0}
-                b{q1}
-            }
-        }
-
-    }
-
-    //We want.
-        +===============+
-        |   a   |   b   |
-        +===============+
-    ->q0|   q0  | q0,q1 |
-      q1|  none |   q2  |
-     *q2|   q2  |   q2  |
-      +===================
-
-     */
-
 
     public String toTxToString(){
         String s = "";
