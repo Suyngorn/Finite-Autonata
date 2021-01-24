@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class DesignFA {
     List<FAModel> list = new ArrayList<>();
-    public void insertDataToFa(){
+    public List<FAModel> insertDataToFa(){
         Scanner input = new Scanner(System.in);
         FAModel faModel = new FAModel();
 
@@ -44,15 +44,16 @@ public class DesignFA {
         }
         print("\n"+t+"\n");
         print("Which is the start state?:");
-        faModel.setStart_state(input.next());
+        faModel.setStart_state("q"+input.next());
         print("which is the final state?: ");
-        faModel.setFinal_state(input.next());
+        faModel.setFinal_state("q"+input.next());
         List<FAModel.S> listS = new ArrayList<>();
-        FAModel.S s = new FAModel.S();
+
 
         println("Enter the state by typing only the number!\npress 'q' to exit the state!\nBe careful you cannot go back!");
 
         for (int qq=0; qq<Q.length;qq++){
+            FAModel.S s = new FAModel.S();
             s.setState(Q[qq]);
             List<FAModel.Symbol> listSymbol = new ArrayList<>();
             for (int aa =0; aa<faModel.getX().length;aa++){
@@ -93,6 +94,8 @@ public class DesignFA {
 
         long x = 99999999;
         printFA(list);
+
+        return list;
     }
 
 
@@ -106,7 +109,7 @@ public class DesignFA {
             testFA = "NFA";
         }
         println(hr);
-        print("This Finite Automata is "+ testFA);
+        println("This Finite Automata is "+ testFA);
         println(hr+"\n");
 
     }

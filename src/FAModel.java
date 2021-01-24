@@ -115,19 +115,22 @@ public class FAModel {
 
 
     /*
-    data = {
-        q0{
-            a{q0}
-            b{q0,q1}
+    S = {
+        {
+            q0,
+            symbol{
+                a{q0}
+                b{q1}
+            }
         }
-        q1{
-            a{none}
-            b{q2}
+        {
+            q1,
+            symbol{
+                a{q0}
+                b{q1}
+            }
         }
-        q2{
-            a{q2}
-            B{Q2}
-        }....
+
     }
 
     //We want.
