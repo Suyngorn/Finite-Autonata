@@ -5,40 +5,47 @@ import java.util.Scanner;
 public class DesignFA {
     List<FAModel> list = new ArrayList<>();
     public List<FAModel> insertDataToFa(){
+        //Scanner created to ask user to input som values
         Scanner input = new Scanner(System.in);
+
+        //Call model of FA to insert data to the object
         FAModel faModel = new FAModel();
 
-
+        //Ask user to input the amount of state of FA!
         print("\nHow many state?: ");
         int i = input.nextInt();
+        //when user input number 3 so there are q0,q1,q3;
+        //so we need to convert the number 3 to the q1,q2,q3 like below
         String Q[] = new String[i];
         for (int j = 0; j<i;j++){
             Q[j] = "q"+j;
 
         }
+        //add state to the object
         faModel.setQ(Q);
 
+        //ask user about the symbol
         print("\nHow many symbols?: ");
         int sys = input.nextInt();
         print("\nDo you want ot choose your own symbol?[y/n]: ");
         String sym =  input.next();
         if (sym.equals("y")){
-            for (int k =0; k<sys; k++){
-
-            }
+           //I haven't done it yet!
         }else {
+            //auto generate symbol by "a,b,c,.."
             String a[] = new String[sys];
-
             char c = 'a';
             for (int r=0; r<sys;r++){
                 a[r] = c+"";
                 c++;
-
             }
             faModel.setX(a);
 
         }
+
+        //Ask user what is the start state and final state
         String t = "";
+        //here I loop the state to tell the user how many state are there.
         for (int m=0; m<Q.length;m++){
             t = t + Q[m]+", ";
         }
@@ -47,15 +54,19 @@ public class DesignFA {
         faModel.setStart_state("q"+input.next());
         print("which is the final state?: ");
         faModel.setFinal_state("q"+input.next());
+
+        //ask user where is the state go ex: q1 by a : q2;
         List<FAModel.S> listS = new ArrayList<>();
-
-
-        println("Enter the state by typing only the number!\npress 'q' to exit the state!\nBe careful you cannot go back!");
-
+        println("\nEnter the state by typing only the number!\npress 'q' to exit the state!\nBe careful you cannot go back!");
         for (int qq=0; qq<Q.length;qq++){
+
+            //start a new model to add the new values to the object
             FAModel.S s = new FAModel.S();
             s.setState(Q[qq]);
+
+            //create the list to store the symbol model.
             List<FAModel.Symbol> listSymbol = new ArrayList<>();
+
             for (int aa =0; aa<faModel.getX().length;aa++){
                 List<FAModel.Tx> listTx = new ArrayList<>();
                 FAModel.Symbol symbol = new FAModel.Symbol();
@@ -128,22 +139,47 @@ public class DesignFA {
 
      */
 
-
+    //Nothing in this function it build to print the state of the FA
     void printFA(List<FAModel> list){
-        String hr = "======================";
+        String row = "";
+        String row1 ="";
+        String hr = "+===============+";
         String pl = "+";
         String ru = "|";
-        FAModel fa = list.get(0);
-        String testFA = "DFA";
-        if (fa.isFa()){
-            testFA = "NFA";
+        String ta = "\t";
+        String newLine = "\n";
+        row1 = ta+hr;
+        for (int i=0;i<list.get(0).getX().length;i++){
+            if (i==0){
+                row = ta+ru+ta+list.get(0).getX()[i]+ta;
+            }else if (i==list.get(0).getX().length-1){
+                row = row+ru+ta+list.get(0).getX()[i]+ta+ru;
+            }else {
+                row = row+ru+ta+list.get(0).getX()[i]+ta;
+            }
         }
-        println(hr);
-        println("This Finite Automata is "+ testFA);
-        println(hr+"\n");
+        row1 = row1+newLine+row;
+        for (FAModel.S k : list.get(0).getSR()){
+            if (list.get(0).getStart_state().equals(k.getState())){
+                row = "->"+k.getState()+ru;
+            }else if (list.get(0).getFinal_state().equals(k.getState())){
+                row = "*"+k.getState()+ta+ru;
+            }else {
+                row = k.getState()+ta+ru;
+            }
+            for (FAModel.Symbol s : k.getSymbols()){
+                for (FAModel.Tx t:s.getTx()){
+                    row = row+ta+t.getTx()+ta+ru;
+                }
+            }
+            row1 = row1+newLine+row;
+        }
+        row1 = row1+newLine+hr;
+        println(row1);
 
     }
 
+    //These function build to print string!
     void print(String a){
         System.out.print(a);
     }
