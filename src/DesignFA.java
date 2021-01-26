@@ -52,8 +52,14 @@ public class DesignFA {
         print("\n"+t+"\n");
         print("Which is the start state?:");
         faModel.setStart_state("q"+input.next());
-        print("which is the final state?: ");
-        faModel.setFinal_state("q"+input.next());
+        print("How many final states? :");
+        int FS = input.nextInt();
+        String[] fin = new String[FS];
+        for (int iFS=0; iFS<FS;iFS++){
+            print("which are the final state?: ");
+            fin[iFS] = "q"+input.next();
+        }
+        faModel.setFinal_state(fin);
 
         //ask user where is the state go ex: q1 by a : q2;
         List<FAModel.S> listS = new ArrayList<>();
@@ -183,6 +189,9 @@ public class DesignFA {
         }
         row1 = row1+newLine+hr;
         println(row1);
+        if (list.get(0).isFa()){
+            println("This FA is non deterministic 'NFA'\n");
+        }else println("This Fa is deterministic 'DFA'\n");
 
     }
 

@@ -6,7 +6,7 @@ public class FAModel {
     String X[];
     List<S> SR;
     String start_state;
-    String final_state;
+    String final_state[];
 
     public boolean isFa() {
         return fa;
@@ -51,11 +51,11 @@ public class FAModel {
         this.start_state = start_state;
     }
 
-    public String getFinal_state() {
+    public String[] getFinal_state() {
         return final_state;
     }
 
-    public void setFinal_state(String final_state) {
+    public void setFinal_state(String[] final_state) {
         this.final_state = final_state;
     }
 

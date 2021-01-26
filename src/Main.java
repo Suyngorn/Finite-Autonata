@@ -9,6 +9,13 @@ public class Main {
             b=true;
             DesignFA designFA = new DesignFA();
             list = designFA.insertDataToFa();
+
+
+
+            NFA nfa = new NFA();
+            nfa.accepted(list);
+
+
             while (b){
                 AcceptString acceptString = new AcceptString(list, callback);
                 acceptString.testAcceptString();

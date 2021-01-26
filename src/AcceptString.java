@@ -107,26 +107,40 @@ public class AcceptString {
             }
         }
 
-        boolean accept = true;
+                
         do {
+            int countTx = 0;
+            boolean check = false;
             for (FAModel.S k: faModel.getSR()){
                 if (nQ.equals(k.getState())){
                     for (FAModel.Symbol s:k.getSymbols()){
                         if (index<symbol.length){
-                            if (String.valueOf(symbol[index]).equals(s.getSymbol()) && s.getTx()!=null && !s.getTx().get(0).getTx().equals("None")){
+                            if (String.valueOf(symbol[index]).equals(s.getSymbol()) && s.getTx()!=null){
                                 int count = 0;
                                 for (FAModel.Tx tx:s.getTx()){
-                                    if (count==0){
-                                        nQ = tx.getTx();
-                                        index++;
-                                        accept=true;
-                                    }else {
-                                        memory[mIndex][0] = tx.getTx();
-                                        memory[mIndex][1] = index+"";
-                                        memory[mIndex][2] = "false";
-                                        mIndex++;
+                                    if (tx.getTx().equals("None")){
+                                        for (int i =0; i<=mIndex;i++){
+                                            if (memory[i][2].equals("false")){
+                                                nQ = memory[i][0];
+                                                index = Integer.parseInt(memory[i][1]);
+                                                memory[i][2]="true";
+                                            }
+
+                                        }
+                                        break;
+                                    }else{
+                                        if (count==0){
+                                            nQ = tx.getTx();
+                                            index++;
+                                        }else {
+                                            memory[mIndex][0] = tx.getTx();
+                                            memory[mIndex][1] = index+"";
+                                            memory[mIndex][2] = "false";
+                                            mIndex++;
+                                        }
+                                        count++;
                                     }
-                                    count++;
+
                                 }
                             }
                         }
@@ -136,10 +150,10 @@ public class AcceptString {
             }
         }while (index<symbol.length);
 
-        if (accept && nQ.equals(faModel.getFinal_state())){
-            print("The string has been accepting by FA");
+        if (nQ.equals(faModel.getFinal_state())){
+            println("\nThe string has been accepting by FA\n");
         }else {
-            print("The string has not accepted by FA");
+            println("\nThe string has not accepted by FA\n");
         }
     }
 
@@ -151,4 +165,14 @@ public class AcceptString {
     private void print(String a){
         System.out.print(a);
     }
+    private void println(String a){
+        System.out.println(a);
+    }
+
+
+    public void accepted(char[] symbol){
+
+
+    }
+
 }
