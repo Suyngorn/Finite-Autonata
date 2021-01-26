@@ -133,23 +133,65 @@ public class NFA {
         System.out.println(State);
 
 
-        String ts;//Transition
-        Map<String, Map<Character,List<String>>> Q =  new TreeMap<String, Map<Character, List<String>>>();
-
-        for (FAModel.S tran : faModel.getSR()){
+        List<String> train = new ArrayList<>();
+        for (FAModel.S tran:faModel.getSR()){
             String from = tran.getState();
-            char sy;
-            if (!Q.containsKey(from)) Q.put(from, new TreeMap<Character, List<String>>());
-            for (FAModel.Symbol sym: tran.getSymbols()){
-                sy = sym.getSymbol().charAt(0);
-                if (!Q.get(tran.getState()).containsKey(sy)) Q.get(from).put(sy, new ArrayList<>());
-                for (FAModel.Tx tt:sym.getTx()){
-                    Q.get(from).get(sy).add(tt.getTx());
+            String to="";
+            String sym="null";
+
+
+            String ts1="";
+            boolean checkSym = true;
+            for (FAModel.Symbol symbol:tran.getSymbols()){
+                String ts = from;
+                for (FAModel.Tx tx:symbol.getTx()){
+                    if (!sym.equals(symbol.getSymbol()) && tx.getTx().equals(to)){
+                        sym = symbol.getSymbol();
+                        ts = ts1+","+symbol.getSymbol();
+                        train.set(train.size()-1,ts);
+                    }else if (!sym.equals(symbol.getSymbol())&&!tx.getTx().equals(to)){
+                        sym = symbol.getSymbol();
+                        to = tx.getTx();
+                        ts = ts+","+to+","+symbol.getSymbol();
+                        train.add(ts);
+
+                    }else if (sym.equals(symbol.getSymbol())&&!tx.getTx().equals(to)){
+                        sym = symbol.getSymbol();
+                        to = tx.getTx();
+                        ts = from + ","+to+","+sym;
+                        train.add(ts);
+
+                    }
+                    ts1=ts;
+
                 }
 
             }
         }
 
+//        System.out.print(train.toString());
+        String[] train1 = new String[train.size()];
+        int i=0;
+        for (String v:train){
+            train1[i]=v;
+            i++;
+        }
 
+        NFA dfa1 = new NFA(State, train1);
+        while (true){
+            String[] testsF1 = { insertTest("Test if a string is accepted by a FA\nPress 'q' if you don't want to test!\nEnter the string : ") };
+            dfa1.test(" ",testsF1);
+        }
+
+
+        
+        
+
+    }
+
+    String insertTest(String outPut){
+        Scanner input = new Scanner(System.in);
+        System.out.print(outPut);
+        return input.next();
     }
 }

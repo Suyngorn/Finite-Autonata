@@ -16,10 +16,10 @@ public class Main {
             nfa.accepted(list);
 
 
-            while (b){
-                AcceptString acceptString = new AcceptString(list, callback);
-                acceptString.testAcceptString();
-            }
+//            while (b){
+//                AcceptString acceptString = new AcceptString(list, callback);
+//                acceptString.testAcceptString();
+//            }
 
         }
 
