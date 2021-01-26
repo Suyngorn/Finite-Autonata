@@ -168,9 +168,16 @@ public class DesignFA {
                 row = k.getState()+ta+ru;
             }
             for (FAModel.Symbol s : k.getSymbols()){
+                int i = 0;
                 for (FAModel.Tx t:s.getTx()){
-                    row = row+ta+t.getTx()+ta+ru;
+                    i++;
+                    if (i>1){
+                        row = row+","+t.getTx();
+                    }else {
+                        row = row+ta+t.getTx();
+                    }
                 }
+                row=row+ta+ru;
             }
             row1 = row1+newLine+row;
         }
